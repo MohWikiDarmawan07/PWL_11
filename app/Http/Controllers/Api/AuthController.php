@@ -24,5 +24,25 @@ class AuthController extends Controller
             'token_type' => 'Brearer',
             'user' => $user,
         ]);
+
+      
+    }
+    
+    public function login(LoginRequest $request)
+    {
+        $validated = $request->validated();
+
+        if (!Auth::attempt($validated)){
+            return $this->apiError('Credentials not match', Response::HTTP_UNAUTHORIZED);
+        }
+
+    $user = User::where('email', $validated['email'])->first();
+    $token = $user->createToken('auth_token')->plainTexttoken;
+
+    return $this->apiSuccess([
+        'token' => $token,
+        'token_type' => 'Brearer',
+        'user' => $user,
+    ]);
     }
 }
