@@ -25,7 +25,7 @@ class RegisterRequest extends Apirequest
         return [
             'name' => 'required|string|max255',
             'email' => 'required|string|email|max:255|unique:users',
-            'pasword' => 'required|string|min:8'
+            'password' => 'required|string|min:8'
         ];
     }
 }
